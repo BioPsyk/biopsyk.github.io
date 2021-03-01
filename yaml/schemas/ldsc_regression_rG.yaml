@@ -1,0 +1,40 @@
+$schema: "http://json-schema.org/draft-01/schema#"
+$id: "https://biopsyk.dk/schemas/ldsc_regression_rG/0.1.0.yaml"
+title: "Raw metadata"
+description: |
+        Input metadata information to process in the ldsc pipeline.
+type: "object"
+properties:
+    #---------------------------------------------------------------------------------
+  # name properties
+
+  name_folder1:
+    description: |
+      Name of the LD specific meta file folder.
+    type: "string"
+
+  name_folder2:
+    description: |
+      Name of the second LD specific meta file folder. This is only applicable if you wish to compare against specific phenotypes instead of all given phenotypes. Meaning that folder1 will only be compared against folder2 is you name one, otherwise folder1 will be compared against folder1.
+    type: "string"
+
+ #---------------------------------------------------------------------------------
+  # extra properties
+
+  extra_LD:
+    description: |
+      Choice of LD reference scores. Leave empty if choosing default, which will be 1000 genomes.
+    type: "string"
+    enum:
+        - "iPsych"
+
+  extra_regions:
+    description: |
+      If additional regions should be removed, please choose one of the options. Default is no regions removed.
+    type: "string"
+    enum:
+        - "MCH regions"
+
+additionalProperties: false
+required:
+        - "name_folder1"
