@@ -117,6 +117,9 @@ properties:
       - title: "Pubmed ID"
         type: "integer"
         minimum: 0
+      - title: "Internal reference"
+        type: "string"
+        minLength: 1
 
   study_Year:
     title: "Publication year"
@@ -645,6 +648,7 @@ required:
   - "cleansumstats_metafile_date"
   - "path_sumStats"
   - "study_Title"
+  - "study_PMID"
   - "study_Year"
   - "study_PhenoDesc"
   - "study_PhenoCode"
