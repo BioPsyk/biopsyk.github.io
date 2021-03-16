@@ -23,10 +23,6 @@ description: |
   Two resources are/may be necessary to assist in the completiong of this data:
   Our in house ontologies which provides standard codes for certain variables.
 
-  Note: we use the GWAS Atlas phenotype coding system (https://atlas.ctglab.nl/)
-
-  https://docs.google.com/spreadsheets/d/1qghudJelGssaTbe8CDAOHOk7fhpyDAwEKGkOBMqGb3M/
-
   An external data base that can be referenced to save some time:
   https://docs.google.com/spreadsheets/d/1NtSyTscFL6lI5gQ_00bm0reoT6yS2tDB3SHhgM7WwSE/
 type: "object"
@@ -119,7 +115,7 @@ properties:
         minimum: 0
       - title: "Internal reference"
         type: "string"
-        minLength: 1
+        minLength: 3
 
   study_Year:
     title: "Publication year"
@@ -148,7 +144,7 @@ properties:
   study_PhenoCode:
     title: "Standardized phenotype code"
     description: |
-      List of phenotypes in the format of [EOF](https://www.ebi.ac.uk/efo/) codes:
+      List of phenotypes in the format of [EFO](https://www.ebi.ac.uk/efo/) codes:
 
       > Experimental Factor Ontology (EFO) provides a systematic description of many experimental
       > variables available in EBI databases, and for projects such as the GWAS catalog.
