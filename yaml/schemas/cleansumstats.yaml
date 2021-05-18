@@ -38,7 +38,7 @@ properties:
 
   cleansumstats_metafile_user:
     description: |
-      Name of the person that created this metadata file.
+      First and last of the person that created this metadata file.
     type: "string"
     pattern: "^[a-zA-Z0-9_. -]+?$"
 
@@ -75,6 +75,8 @@ properties:
       This file must be located in the same directory as the metadata file.
     type: "string"
     pattern: "^[a-zA-Z0-9][a-zA-Z0-9_.-]+\\.pdf$"
+    examples:
+      - "Gadin_bioinf2018.pdf"
 
   path_supplementary:
     title: "Publication supplementary information"
@@ -98,6 +100,8 @@ properties:
       All other characters are acceptable.
     type: "string"
     pattern: "^[^\n\t]+$"
+    examples:
+      - "A genome-wide association study of shared risk across psychiatric disorders implicates gene regulation during fetal neurodevelopment"
 
   study_PMID:
     title: "Publication ID"
@@ -107,15 +111,15 @@ properties:
 
       If missing, record extra data in study_Use.
     oneOf:
-      - title: "DOI link"
-        type: "string"
-        format: "uri"
       - title: "Pubmed ID"
         type: "integer"
         minimum: 0
+      - title: "DOI link"
+        type: "string"
+        format: "uri"
       - title: "Internal reference"
         type: "string"
-        minLength: 3
+        pattern: "^[a-zA-Z0-9_-]{3,}$"
 
   study_Year:
     title: "Publication year"
@@ -166,6 +170,8 @@ properties:
       URL to site that hosts stats.
     type: "string"
     format: "uri"
+    examples:
+      - "https://msk.hugeamp.org/downloads.html"
 
   study_FileURL:
     title: "URL for direct download"
@@ -174,6 +180,8 @@ properties:
       May not be possible if request forms are required
     type: "string"
     format: "uri"
+    examples:
+      - "http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST90007001-GCST90008000/GCST90007526/GCST90007526_buildGRCh37.tsv.gz"
 
   study_AccessDate:
     title: "Date of download"
@@ -201,10 +209,10 @@ properties:
       If iPSYCH data, UKBiobank, or some other in house data set that we analyze,
       is in this study then this is very important to mark.
     type: "array"
+    uniqueItems: true
     items:
       type: "string"
       enum:
-        - "none"
         - "iPSYCH2012"
         - "iPSYCH2015"
         - "UKB"
@@ -251,14 +259,10 @@ properties:
       NOTE: If a meta-analysis with multiple approaches, use "meta".
     type: "string"
     enum:
+      - "HapMap"
       - "HapMap2"
-      - "HapMap2"
-      - "1KGP_pilot"
-      - "1KGP_phase1"
-      - "1KGP_phase2"
-      - "1KGP_phase3"
-      - "1KGP_phase4"
-      - "1KGP_phase5"
+      - "HapMap3"
+      - "1KGP"
       - "TOPMED"
       - "HRC"
       - "meta"
@@ -291,14 +295,10 @@ properties:
       NOTE: If a meta-analysis with multiple approaches, use "meta".
     type: "string"
     enum:
+      - "HapMap"
       - "HapMap2"
-      - "HapMap2"
-      - "1KGP_pilot"
-      - "1KGP_v1"
-      - "1KGP_v2"
-      - "1KGP_v3"
-      - "1KGP_v4"
-      - "1KGP_v5"
+      - "HapMap3"
+      - "1KGP"
       - "TOPMED"
       - "HRC"
       - "meta"
@@ -579,6 +579,10 @@ properties:
       Column for the P-value.
     type: "string"
 
+  stats_neglog10P:
+    title: "Is p-value -log10 transformed?"
+    type: "boolean"
+
   col_N:
     title: "Per SNP total sample size"
     description: |
@@ -638,6 +642,9 @@ properties:
     type: "string"
 
 additionalProperties: false
+dependencies:
+    col_P:
+      required: ["stats_neglog10P"]
 required:
   - "cleansumstats_version"
   - "cleansumstats_metafile_user"
@@ -652,6 +659,5 @@ required:
   - "study_Use"
   - "study_Ancestry"
   - "study_Gender"
-  - "study_Array"
   - "stats_TraitType"
   - "stats_TotalN"
