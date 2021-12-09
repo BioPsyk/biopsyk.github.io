@@ -1,5 +1,5 @@
-$schema: "http://json-schema.org/draft-01/schema#"
-$id: "https://biopsyk.dk/schemas/ldsc_regression_rG/0.1.0.yaml"
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://biopsyk.dk/schemas/ldsc_regression_rg/0.1.0.yaml"
 title: "Raw metadata"
 description: |
         Input metadata information to process in the ldsc pipeline.
@@ -23,18 +23,21 @@ properties:
 
   extra_LD:
     description: |
-      Choice of LD reference scores. Leave empty if choosing default, which will be 1000 genomes.
+      Path to choice of LD refernce scores.
     type: "string"
-    enum:
-        - "iPsych"
 
-  extra_regions:
+  include_regions:
     description: |
-      If additional regions should be removed, please choose one of the options. Default is no regions removed.
+      Path to choice of regions to be included. if not specified, then all regions are used.
     type: "string"
-    enum:
-        - "MCH regions"
+
+  exclude_regions:
+    description: |
+      Path to choice of regions to be removed. Leave empty if no regions are to be removed.
+    type: "string"
 
 additionalProperties: false
 required:
         - "name_folder1"
+        - "name_folder2"
+        - "extra_LD"
